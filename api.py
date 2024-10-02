@@ -2,11 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api, reqparse, fields, marshal_with, abort
 
+#creating an instance of the class and assign it to the application’s module name, conventionally package
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///database.db'
 db=SQLAlchemy(app)
 api=Api(app)
-
 
 class UserModel(db.Model):
      id=db.Column(db.Integer, primary_key=True)
@@ -72,10 +72,12 @@ class User(Resource):
 api.add_resource(Users, "/api/users/")
 api.add_resource(User, "/api/user/<int:id>")
 
+#using the route() decorator to tell flask which route triggers what
 @app.route("/")
 
 def home():
     return '<h1>miao</h1>'
 
 if __name__ == "__main__":
+     #using debugging=True to enable debug mode, to catch and throw errors
      app.run(debug=True)
